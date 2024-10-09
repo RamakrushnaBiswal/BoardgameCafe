@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  { useState , useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Mybook from './MyBook';
 import TodaysSpecial from './TodaysSpecial';
@@ -28,6 +28,10 @@ function ParallaxImage() {
     y: mousePosition.y / 30,
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <div className="w-full h-auto bg-amber-100 items-center justify-center overflow-hidden" onMouseMove={handleMouseMove}>
@@ -56,10 +60,16 @@ function ParallaxImage() {
           <h1 className="text-5xl md:text-9xl font-roboto">Flip Menu</h1>
           <GiArrowDunk size={60} className="mt-2 text-orange-400" />
         </div>
-        <div className="w-full md:flex md:items-center md:justify-center">
+        {/* <div className="w-full md:flex md:items-center md:justify-center">
           <Mybook />
         </div>
-        <TodaysSpecial />
+        <TodaysSpecial /> */}
+        <div className="w-full md:flex md:items-center md:justify-center mb-20"> {/* Adjust this container */}
+          <Mybook />
+        </div>
+        <div className="w-full md:flex md:items-center md:justify-center" style={{ paddingBottom: '80px' }}> {/* Add bottom padding here */}
+          <TodaysSpecial />
+</div>
       </div>
     </>
   );

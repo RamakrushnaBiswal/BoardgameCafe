@@ -1,6 +1,10 @@
 import Notfound from "../../assets/Menu_assets/Notfound.gif"
+import React, { useState , useEffect } from 'react';
 
 const NotFound = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     return (
        <div>
          <div className="flex flex-col items-center justify-center h-screen">

@@ -1,7 +1,10 @@
-import  { forwardRef } from "react";
 import PropTypes from "prop-types";
+import React, { useState , useEffect , forwardRef } from 'react';
 
 const Page = forwardRef((props, ref) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="demoPage bg-white" ref={ref}>
       <div className="h-full">{props.children}</div>

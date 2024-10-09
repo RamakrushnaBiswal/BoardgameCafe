@@ -111,6 +111,10 @@ export default function Event() {
     };
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <div id="event" className="w-full h-fit bg-amber-100 md:overflow-hidden ">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import photo from "../../assets/login.png";
 import { useNavigate } from "react-router-dom";
 
@@ -69,6 +69,10 @@ const Signup = () => {
       console.error("Error:", error);
     }
   };
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   return (
     <div className="w-screen h-screen flex items-center justify-center pt-10">

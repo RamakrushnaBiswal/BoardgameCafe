@@ -42,6 +42,10 @@ function MyBook() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div style={BgTextureStyle} className=" mt-2 mb-20 overflow-hidden w-full h-full flex justify-center items-center ">
       <HTMLFlipBook

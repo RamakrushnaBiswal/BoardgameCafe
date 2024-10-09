@@ -1,6 +1,10 @@
 import bgpic from "../../assets/img/abt1.jpg";
+import React, { useEffect } from 'react';
 
 export default function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div id="about" className="relative w-full h-screen md:mt-28">
       <div

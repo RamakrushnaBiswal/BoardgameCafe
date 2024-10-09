@@ -1,7 +1,13 @@
+
+import React, { useState , useEffect } from "react";
+import { Link } from "react-router-dom";
+import photo from "../../assets/login.png";
+
 import { Link, useNavigate } from "react-router-dom";
 import photo from "../../assets/login.png";
 import React, { useState } from "react";
 import { message } from "antd";
+
 
 const Login = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
@@ -42,6 +48,10 @@ const Login = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="w-screen h-screen flex items-center justify-center pt-10">
