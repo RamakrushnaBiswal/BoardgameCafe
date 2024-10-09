@@ -5,6 +5,46 @@ import pic3 from "../../assets/img/abt2.png";
 import pic4 from "../../assets/img/abt3.png";
 import pic5 from "../../assets/img/abt4.png";
 
+const boardGames = [
+  {
+    title: "Catan",
+    players: "4-6 players",
+    image: pic2,
+    alt: "Catan",
+  },
+  {
+    title: "Ticket to Ride",
+    players: "2-5 players",
+    image: pic3,
+    alt: "Ticket to Ride",
+  },
+  {
+    title: "Codenames",
+    players: "4-8 players",
+    image: pic4,
+    alt: "Codenames",
+  },
+  {
+    title: "Ticket to Ride",
+    players: "2-5 players",
+    image: pic3,
+    alt: "Ticket to Ride",
+  },
+  {
+    title: "Codenames",
+    players: "4-8 players",
+    image: pic4,
+    alt: "Codenames",
+  },
+  {
+    title: "Pandemic",
+    players: "2-4 players",
+    image: pic5,
+    alt: "Pandemic",
+  },
+  // Add more games as needed
+];
+
 export default function Register() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -27,7 +67,7 @@ export default function Register() {
         time,
       }),
     })
-    
+
       .then((res) => res.json())
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
@@ -53,31 +93,30 @@ export default function Register() {
             />
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 px-6 md:px-6 border-2 border-gray-200">
-          <div className="w-full md:w-3/5 lg:w-2/5 mx-auto border-2 p-7 rounded-lg border-black bg-amber-100">
-            <div className="space-y-6">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter">
+        <section className="w-full py-12 md:py-24 lg:py-24 px-6 md:px-6 bg-white">
+          <div className="w-full md:w-3/5 lg:w-3/5 mx-auto border-2 p-7 rounded-lg border-yellow-300 bg-yellow-50 shadow-md">
+            <div className="space-y-10">
+              {/* Heading */}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-yellow-600">
                 Reserve Your Spot
               </h2>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
-                Fill out the form below to secure your reservation at our board
-                game cafe.
+              <p className="text-base sm:text-lg md:text-xl text-gray-600">
+                Fill out the form below to secure your reservation at our board game cafe.
               </p>
+
+              {/* Form */}
               <form className="grid gap-4">
+                {/* Number of Guests & Date */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Guests */}
                   <div>
-                    <label
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      htmlFor="guests"
-                    >
+                    <label htmlFor="guests" className="text-sm font-medium text-gray-700">
                       Number of Guests
                     </label>
                     <select
                       id="guests"
-                      onChange={(e) => {
-                        setGuests(e.target.value);
-                      }}
-                      className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      onChange={(e) => setGuests(e.target.value)}
+                      className="flex h-10 w-full items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all"
                     >
                       <option value="">Select number of guests</option>
                       <option value="1">1 Guest</option>
@@ -88,36 +127,30 @@ export default function Register() {
                       <option value="6">6 Guests</option>
                     </select>
                   </div>
+
+                  {/* Date */}
                   <div>
-                    <label
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      htmlFor="date"
-                    >
+                    <label htmlFor="date" className="text-sm font-medium text-gray-700">
                       Date
                     </label>
                     <input
                       type="date"
                       id="date"
-                      onChange={(e) => {
-                        setDate(e.target.value);
-                      }}
-                      className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      onChange={(e) => setDate(e.target.value)}
+                      className="flex h-10 w-full items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all"
                     />
                   </div>
                 </div>
+
+                {/* Time */}
                 <div>
-                  <label
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    htmlFor="time"
-                  >
+                  <label htmlFor="time" className="text-sm font-medium text-gray-700">
                     Time
                   </label>
                   <select
                     id="time"
-                    onChange={(e) => {
-                      setTime(e.target.value);
-                    }}
-                    className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => setTime(e.target.value)}
+                    className="flex h-10 w-full items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all"
                   >
                     <option value="">Select time</option>
                     <option value="6:00 PM">6:00 PM</option>
@@ -127,8 +160,10 @@ export default function Register() {
                     <option value="10:00 PM">10:00 PM</option>
                   </select>
                 </div>
+
+                {/* Submit Button */}
                 <button
-                  className="inline-flex items-center justify-center p-4 bg-[#D9D9D9] hover:bg-[#C9C9C9]"
+                  className="w-full py-3 px-6 text-lg font-bold text-white bg-yellow-500 rounded-md shadow-md hover:bg-yellow-600 transition-all ease-in-out duration-300"
                   type="submit"
                   onClick={handleSubmit}
                 >
@@ -138,41 +173,34 @@ export default function Register() {
             </div>
           </div>
         </section>
+
+
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-amber-100 bg-green-900 p-5 text-center">
           Popular Board Games
         </h1>
-        <div className="mt-8 w-full flex justify-center bg-white ">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8 mb-10">
-            {[
-              { src: pic2, title: "Catan", players: "4-6 players" },
-              { src: pic3, title: "Ticket to Ride", players: "2-5 players" },
-              { src: pic4, title: "Codenames", players: "4-8 players" },
-              { src: pic4, title: "Codenames", players: "4-8 players" },
-              { src: pic4, title: "Codenames", players: "4-8 players" },
-              { src: pic5, title: "Pandemic", players: "2-4 players" },
-            ].map((game, index) => (
+        <div className="w-full flex justify-center bg-white">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8 mb-10 px-4 lg:px-0">
+            {boardGames.map((game, index) => (
               <div
                 key={index}
-                className="relative overflow-hidden transition-transform duration-300 ease-in-out perspective group"
-                data-v0-t="card"
+                className="rounded-lg border border-gray-300 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:border-yellow-500 cursor-pointer"
               >
-                <div className="flex flex-col items-center justify-center p-6 rounded-lg border bg-card text-card-foreground shadow-sm group-hover:scale-105 transition-all duration-300 ease-in-out hover:shadow-lg">
+                <div className="flex flex-col items-center justify-center p-6">
                   <img
-                    src={game.src}
-                    alt={game.title}
-                    className="mb-4 w-64 h-64 object-cover"
+                    src={game.image}
+                    alt={game.alt}
+                    className="mb-4 w-64 h-64 object-cover rounded-md"
                   />
-                  <div className="font-medium">{game.title}</div>
-                  <div className="text-muted-foreground text-sm">
-                    {game.players}
+                  <div className="font-semibold text-gray-900 text-lg">
+                    {game.title}
                   </div>
+                  <div className="text-gray-500 text-sm">{game.players}</div>
                 </div>
-                {/* Glow effect */}
-                <div className="absolute inset-0 rounded-lg bg-yellow-500 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-25"></div>
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </>
   );
