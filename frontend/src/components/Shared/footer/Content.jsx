@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Logo from '../../../assets/Logo/playcafe.png';
+import googleImage from "../../../assets/img/google.png"
 import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
+import GoogleTranslate from "../GoogleTranslate";
 
 export default function Content() {
   return (
@@ -142,6 +144,15 @@ const Nav = () => {
         <a href="tel:+17189711684" className="mb-2 hover:underline">
           718-971-1684
         </a>
+      
+        <div className="flex items-center justify-center mt-4">
+          <img
+            src={googleImage}
+            alt="Google Translate"
+            className="w-[2rem] h-[2rem] mr-[65px]"
+          />
+        </div>
+          <GoogleTranslate/>
       </div>
     </div>
   );
