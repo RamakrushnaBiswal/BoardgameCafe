@@ -1,6 +1,7 @@
 // models/Event.js
 
 const mongoose = require("mongoose");
+const { string } = require("zod");
 
 // Define the Event schema
 const eventSchema = new mongoose.Schema({
@@ -14,21 +15,21 @@ const eventSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
   time: {
-    type: Date,
+    type: String,
     required: true,
   },
   ageRange: {
-    type: String,
+    type: String, 
     required: true,
     enum: ["0-12", "13-17", "18+", "All Ages"],
   },
   image: {
     type: String,
-    required: true,
+    default: "https://imgur.com/4fSKUI4.jpg",
     validate: {
       validator: function (v) {
         return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(

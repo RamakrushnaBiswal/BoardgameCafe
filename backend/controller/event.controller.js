@@ -4,7 +4,7 @@ const Event = require("../models/events.model");
 // Create a new event
 const createEvent = async (req, res) => {
   try {
-    const { title, description, date, time, age, image } = req.body;
+    const { title, description, date, time, ageRange, image } = req.body;
 
     // Input validation
     if (!title || !description || !date || !time) {
@@ -16,7 +16,7 @@ const createEvent = async (req, res) => {
       description,
       date,
       time,
-      age,
+      ageRange,
       image,
     });
 
@@ -34,6 +34,26 @@ const createEvent = async (req, res) => {
   }
 };
 
+const deleteEvent = async (req, res) => {
+  try {
+    const eventId = req.query.id; // Change to req.query.id
+    console.log(eventId);
+    const event = await Event.findById(eventId); // Remove the object wrapper
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    await Event.findByIdAndDelete(eventId);
+    res.status(200).json({message: "Event deleted "});
+  } catch (error) {
+    logger.error("Error deleting event:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
 const getEvents = async (req, res) => {
   try {
     const events = await Event.find();
@@ -49,4 +69,4 @@ const getEvents = async (req, res) => {
   }
 };
 
-module.exports = { createEvent, getEvents };
+module.exports = { createEvent, getEvents, deleteEvent };

@@ -17,6 +17,7 @@ import Register from "../components/Pages/Register";
 import Signup from "../components/Pages/Signup";
 import Login from "../components/Pages/Login";
 import ResetPassword from "../components/Pages/ResetPassword";
+import Admin from "../components/Pages/Admin";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/admin" element={<Admin />} />
     </Route>
   )
 );

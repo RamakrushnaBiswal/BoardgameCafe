@@ -1,6 +1,6 @@
 const express = require("express");
 const logger = require("../config/logger");
-const { createEvent, getEvents } = require("../controller/event.controller");
+const { createEvent, getEvents, deleteEvent } = require("../controller/event.controller");
 
 const router = express.Router();
 
@@ -22,5 +22,6 @@ router.get("/", async (req, res) => {
 });
 router.post("/create", createEvent);
 router.get("/all", getEvents);
+router.get("/delete", deleteEvent);
 
 module.exports = router;
