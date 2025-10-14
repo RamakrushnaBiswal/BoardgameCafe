@@ -1,0 +1,335 @@
+/* Hide default cursor only on devices with hover and fine pointer */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Main animated cursor - Conical/Teardrop shape */
+.animated-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #8B0000, #FF4500, #FFA500);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  pointer-events: none;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  will-change: left, top, transform;
+  animation: pulse 3s infinite;
+}
+
+/* Add a small circle at the tip */
+.animated-cursor::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Simplified glow effect for better performance */
+.animated-cursor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  background: rgba(255, 69, 0, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: glow 3s infinite;
+}
+
+/* Cursor trail - Conical shape */
+.cursor-trail {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.4), rgba(255, 69, 0, 0.4), rgba(255, 165, 0, 0.4));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  pointer-events: none;
+  z-index: 9998;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: left 0.1s ease-out, top 0.1s ease-out;
+  will-change: left, top, transform;
+  animation: trailPulse 3s infinite;
+}
+
+/* Hover state - Maintain conical shape */
+.animated-cursor.hover {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d, #4ecdc4);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 0 12px rgba(78, 205, 196, 0.8));
+  animation: hoverPulse 1s infinite;
+}
+
+.cursor-trail.hover {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.4), rgba(68, 160, 141, 0.4));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: hoverTrailPulse 1s infinite;
+}
+
+/* Clicking state - Maintain conical shape */
+.animated-cursor.clicking {
+  width: 15px;
+  height: 15px;
+  background: linear-gradient(135deg, #ff4757, #ff3838, #ff4757);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 0 15px rgba(255, 71, 87, 0.9));
+  animation: clickPulse 0.3s ease-out;
+}
+
+.cursor-trail.clicking {
+  width: 25px;
+  height: 25px;
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.5), rgba(255, 56, 56, 0.5));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: clickTrailPulse 0.3s ease-out;
+}
+
+/* Optimized animations for better performance */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes trailPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.2;
+  }
+}
+
+@keyframes hoverPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes hoverTrailPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.2;
+  }
+}
+
+@keyframes clickPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes clickTrailPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* Responsive design - hide cursor on mobile devices */
+@media (max-width: 768px) {
+  .animated-cursor,
+  .cursor-trail {
+    display: none;
+  }
+  
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* Special effects for different elements */
+.animated-cursor.hover::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(68, 160, 141, 0.2));
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 1s infinite;
+}
+
+/* Cursor text */
+.cursor-text {
+  position: fixed;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  animation: textFade 0.3s ease-out;
+}
+
+@keyframes textFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Different cursor types - All conical shapes */
+.animated-cursor.link {
+  background: linear-gradient(135deg, #667eea, #764ba2, #667eea);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 0 12px rgba(102, 126, 234, 0.7));
+}
+
+.animated-cursor.button {
+  background: linear-gradient(135deg, #f093fb, #f5576c, #f093fb);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 0 12px rgba(240, 147, 251, 0.7));
+}
+
+.animated-cursor.input {
+  background: linear-gradient(135deg, #4facfe, #00f2fe, #4facfe);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 0 12px rgba(79, 172, 254, 0.7));
+}
+
+.animated-cursor.nav {
+  background: linear-gradient(135deg, #fa709a, #fee140, #fa709a);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 0 15px rgba(250, 112, 154, 0.8));
+  animation: navPulse 1.5s infinite;
+}
+
+.animated-cursor.hero {
+  background: linear-gradient(135deg, #a8edea, #fed6e3, #a8edea);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 0 18px rgba(168, 237, 234, 0.9));
+  animation: heroPulse 2s infinite;
+}
+
+/* Cursor trail variations - All conical shapes */
+.cursor-trail.link {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.cursor-trail.button {
+  background: linear-gradient(135deg, rgba(240, 147, 251, 0.4), rgba(245, 87, 108, 0.4));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.cursor-trail.input {
+  background: linear-gradient(135deg, rgba(79, 172, 254, 0.4), rgba(0, 242, 254, 0.4));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.cursor-trail.nav {
+  background: linear-gradient(135deg, rgba(250, 112, 154, 0.5), rgba(254, 209, 64, 0.5));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.cursor-trail.hero {
+  background: linear-gradient(135deg, rgba(168, 237, 234, 0.5), rgba(254, 214, 227, 0.5));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* Additional animations */
+@keyframes navPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+@keyframes heroPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.7;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated-cursor,
+  .cursor-trail,
+  .animated-cursor::after,
+  .animated-cursor.hover::before,
+  .cursor-text {
+    animation: none !important;
+    transition: none !important;
+  }
+}
