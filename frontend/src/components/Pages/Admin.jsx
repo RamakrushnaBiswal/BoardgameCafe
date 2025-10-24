@@ -1,7 +1,8 @@
 import { message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/userContext';
+import apiClient from '../../lib/apiClient';
 
 const Admin = () => {
   const [events, setEvents] = useState([]);
@@ -32,10 +33,6 @@ const Admin = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const Admin = {
-    name: 'AdminName',
-  };
 
   const [formData, setFormData] = useState({
     title: '',
@@ -92,31 +89,20 @@ const Admin = () => {
     }
   };
 
-  // Delete event function
+  // Delete event function — use DELETE /api/event/:id via apiClient.del
   const handleDelete = async (eventId) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/event/delete?id=${eventId}`,
-        {
-          method: 'get',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        message.success('Event deleted successfully');
-        navigate('/admin');
-      }
+      await apiClient.del(`/api/event/${eventId}`);
 
-      // Filter out the deleted event from the list
-      setEvents((prevEvents) =>
-        prevEvents.filter((event) => event._id !== eventId)
-      );
+      // Remove deleted event from UI and notify the user
+      setEvents((prevEvents) => prevEvents.filter((ev) => ev._id !== eventId));
+      message.success('Event deleted successfully');
     } catch (error) {
       console.error('Error deleting event:', error);
-      setError(error.message);
+      const msg =
+        error?.data?.error || error?.message || 'Error deleting event';
+      message.error(msg);
+      setError(msg);
     }
   };
 
