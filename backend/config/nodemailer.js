@@ -136,14 +136,10 @@ exports.sendVerificationMail = async (email, verificationCode) => {
         "Failed to connect to email server. Please try again later.",
       );
     } else {
-      throw new Error(
-        `Failed to send verification email: ${error.message}`,
-      );
+      throw new Error(`Failed to send verification email: ${error.message}`);
     }
   }
-
-}
-
+};
 
 exports.sendRegisterVerificationMail = async (email, verificationCode) => {
   const emailText = `
@@ -163,12 +159,11 @@ exports.sendRegisterVerificationMail = async (email, verificationCode) => {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Your OTP Verification Code',
+      subject: "Your OTP Verification Code",
       text: emailText,
     });
   } catch (error) {
     console.error("Error sending OTP email:", error);
     throw new Error("Failed to send OTP email");
   }
-}
-
+};

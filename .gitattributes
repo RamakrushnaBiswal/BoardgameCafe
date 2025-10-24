@@ -1,0 +1,12 @@
+# Normalize line endings and ensure consistent behavior on Windows/Linux
+* text=auto
+
+# Keep certain binary files as-is
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+

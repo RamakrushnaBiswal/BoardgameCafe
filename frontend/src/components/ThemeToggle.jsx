@@ -1,6 +1,6 @@
 import { FaSun, FaMoon } from 'react-icons/fa';
 import useDarkMode from '../hooks/useDarkMode';
-import "../../src/index.css";
+import '../../src/index.css';
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useDarkMode();
@@ -17,7 +17,9 @@ const ThemeSwitcher = () => {
         />
 
         {/* Track */}
-        <span className={`block w-16 h-8 bg-gray-300 rounded-full shadow-inner transition duration-300 ease-in-out ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'}`}></span>
+        <span
+          className={`block w-16 h-8 bg-gray-300 rounded-full shadow-inner transition duration-300 ease-in-out ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'}`}
+        ></span>
 
         {/* Moon Icon for Light Mode */}
         <FaMoon
@@ -39,8 +41,14 @@ const ThemeSwitcher = () => {
         ></span>
 
         {/* Font Awesome Icon as Logo inside a rounded circle */}
-        <div className={`absolute w-8 h-8 bg-white rounded-full flex justify-center items-center shadow-lg transition-all duration-300 ease-in-out transform ${isDarkMode ? 'translate-x-8' : 'translate-x-0'}`}>
-          {isDarkMode ? <FaMoon className="w-5 h-5 text-gray-800" /> : <FaSun className="w-5 h-5 text-gray-800" />}
+        <div
+          className={`absolute w-8 h-8 bg-white rounded-full flex justify-center items-center shadow-lg transition-all duration-300 ease-in-out transform ${isDarkMode ? 'translate-x-8' : 'translate-x-0'}`}
+        >
+          {isDarkMode ? (
+            <FaMoon className="w-5 h-5 text-gray-800" />
+          ) : (
+            <FaSun className="w-5 h-5 text-gray-800" />
+          )}
         </div>
       </label>
     </div>

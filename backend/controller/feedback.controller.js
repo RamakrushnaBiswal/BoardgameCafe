@@ -3,7 +3,6 @@ const { Feedback } = require("../models/feedback.model");
 const logger = require("../config/logger");
 const nodemailer = require("nodemailer");
 
-
 const feedbackSchema = z.object({
   name: z.string().min(2).max(100),
   email: z.string().email(),
@@ -11,12 +10,11 @@ const feedbackSchema = z.object({
   rating: z.number().min(1).max(5),
 });
 
-
 const transporter = nodemailer.createTransport({
-  service: "gmail", 
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS, 
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -36,7 +34,6 @@ async function createFeedback(req, res) {
       });
     }
 
-
     const feedback = await Feedback.create(validationResult.data);
 
     await sendThankYouEmail(feedback);
@@ -54,7 +51,6 @@ async function createFeedback(req, res) {
     });
   }
 }
-
 
 async function sendThankYouEmail(feedback) {
   const mailOptions = {

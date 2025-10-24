@@ -10,12 +10,14 @@ const Contributors = () => {
     const fetchContributors = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://api.github.com/repos/RamakrushnaBiswal/PlayCafe/contributors');
+        const response = await fetch(
+          'https://api.github.com/repos/RamakrushnaBiswal/PlayCafe/contributors'
+        );
         if (!response.ok) {
           throw new Error('Failed to fetch contributors');
         }
         const data = await response.json();
-        
+
         // Fetch additional user details for each contributor
         const contributorsWithDetails = await Promise.all(
           data.map(async (contributor) => {
@@ -26,11 +28,11 @@ const Contributors = () => {
               name: userData.name || userData.login,
               bio: userData.bio,
               location: userData.location,
-              company: userData.company
+              company: userData.company,
             };
           })
         );
-        
+
         setContributors(contributorsWithDetails);
         setError(null);
       } catch (err) {
@@ -64,12 +66,13 @@ const Contributors = () => {
             <Github className="w-8 h-8" />
             GitHub Contributors
           </h1>
-          
+
           {/* Gradient Bar */}
           <div className="h-1 w-full bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 to-blue-500 mb-6"></div>
-          
+
           <p className="text-gray-600 dark:text-gray-300 text-lg mb-8">
-            Thanks to our amazing contributors who help build and improve this project! 🎉
+            Thanks to our amazing contributors who help build and improve this
+            project! 🎉
           </p>
         </div>
 

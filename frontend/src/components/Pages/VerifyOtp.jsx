@@ -6,7 +6,7 @@ import { message } from 'antd';
 const VerifyOtp = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
   const navigate = useNavigate(); // Use useNavigate for navigation
-  const [otp, setOtp] = useState("")
+  const [otp, setOtp] = useState('');
 
   const { id } = useParams();
 
@@ -22,7 +22,6 @@ const VerifyOtp = () => {
     setIsLoading(true);
     setError(null);
 
-
     try {
       const response = await fetch(`${API_URL}/api/forgot/verify-otp`, {
         method: 'POST',
@@ -31,7 +30,7 @@ const VerifyOtp = () => {
         },
         body: JSON.stringify({
           otp: otp,
-          id: id
+          id: id,
         }),
       });
       const result = await response.json();
@@ -78,8 +77,6 @@ const VerifyOtp = () => {
           aria-required="true"
           onChange={(e) => handleChange(e)}
         />
-
-        
 
         <button
           type="submit"

@@ -5,11 +5,11 @@ import { message } from 'antd';
 
 const OtpRegisterVerify = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
-  const navigate = useNavigate(); 
-  const { id } = useParams(); 
-  const [otp, setOtp] = useState("");
-  const [email, setEmail] = useState(id || ""); 
-  
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [otp, setOtp] = useState('');
+  const [email, setEmail] = useState(id || '');
+
   const handleOtpChange = (e) => {
     setOtp(e.target.value);
   };
@@ -26,13 +26,11 @@ const OtpRegisterVerify = () => {
     setIsLoading(true);
     setError(null);
 
-    
     if (otp.length !== 6) {
       setError('Please enter a valid 6-digit OTP');
       setIsLoading(false);
       return;
     }
-
 
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setError('Please enter a valid email address');
@@ -48,14 +46,13 @@ const OtpRegisterVerify = () => {
         },
         body: JSON.stringify({
           email: email, // Now using the email state
-          otp: otp
+          otp: otp,
         }),
       });
       const result = await response.json();
       if (!response.ok) {
         throw new Error(result.message || 'OTP verification failed');
       }
-
 
       message.success('OTP verified successfully! You can now log in.');
       navigate('/login');

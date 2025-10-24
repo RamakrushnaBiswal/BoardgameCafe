@@ -55,10 +55,10 @@ const Navbar = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
+    });
 
     Cookies.remove('authToken');
-    Cookies.remove("authenticatedUser");
+    Cookies.remove('authenticatedUser');
     setToken(null);
     setIsModalOpen(false); // Close the modal
     setIsMenuOpen(false); // after getting logged out close the menu if it is open
@@ -70,20 +70,23 @@ const Navbar = () => {
   return (
     <nav className="w-full fixed top-0 z-50 transition-all duration-500">
       {/* Glassmorphism Background */}
-      <div className={`absolute inset-0 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-white/20 dark:border-gray-700/50 shadow-2xl'
-          : 'bg-transparent'
-      }`}></div>
-      
+      <div
+        className={`absolute inset-0 transition-all duration-500 ${
+          isScrolled
+            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-white/20 dark:border-gray-700/50 shadow-2xl'
+            : 'bg-transparent'
+        }`}
+      ></div>
+
       {/* Animated gradient line */}
-      <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-500 ${
-        isScrolled ? 'w-full opacity-100' : 'w-0 opacity-0'
-      }`}></div>
+      <div
+        className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-500 ${
+          isScrolled ? 'w-full opacity-100' : 'w-0 opacity-0'
+        }`}
+      ></div>
 
       <div className="relative z-10 mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          
           {/* Logo Section */}
           <Link to="/" className="group">
             <div className="flex items-center space-x-3">
@@ -132,7 +135,7 @@ const Navbar = () => {
             <div className="transform hover:scale-110 transition-transform duration-300">
               <ThemeToggle />
             </div>
-            
+
             {token ? (
               <button
                 className="group relative px-6 py-2.5 font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500/50"
@@ -176,9 +179,13 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden absolute top-full left-0 right-0 transition-all duration-500 transform ${
-        isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
-      }`}>
+      <div
+        className={`lg:hidden absolute top-full left-0 right-0 transition-all duration-500 transform ${
+          isMenuOpen
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+      >
         <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/20 dark:border-gray-700/50 shadow-2xl">
           <div className="px-6 py-6 space-y-3">
             {menuItems.map((item, index) => (
@@ -196,7 +203,7 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            
+
             <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
               {token ? (
                 <button
@@ -242,7 +249,7 @@ const Navbar = () => {
                   Are you sure you want to log out of your account?
                 </p>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   className="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105"

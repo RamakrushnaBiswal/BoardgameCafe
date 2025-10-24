@@ -70,7 +70,7 @@ const getEvents = async (req, res) => {
 
 const bookEvent = async (req, res) => {
   const { eventId } = req.body;
-  const userId = req.user; 
+  const userId = req.user;
 
   try {
     // Check if eventId is provided
@@ -92,7 +92,7 @@ const bookEvent = async (req, res) => {
 
     // Check if the event is already booked
     const isAlreadyBooked = customer.bookedEvents.some(
-      (bookedEvent) => bookedEvent.toString() === eventId
+      (bookedEvent) => bookedEvent.toString() === eventId,
     );
 
     if (isAlreadyBooked) {
@@ -109,7 +109,9 @@ const bookEvent = async (req, res) => {
     });
   } catch (error) {
     console.error("Error booking event:", error);
-    res.status(500).json({ message: "Internal server error while booking event" });
+    res
+      .status(500)
+      .json({ message: "Internal server error while booking event" });
   }
 };
 
@@ -118,10 +120,10 @@ const getBookedEvents = async (req, res) => {
 
   try {
     // Find the customer by ID and populate the bookedEvents field with event details
-    const customer = await Customer.findById(id).populate('bookedEvents');
+    const customer = await Customer.findById(id).populate("bookedEvents");
 
     if (!customer) {
-      return res.status(404).json({ message: 'Customer not found' });
+      return res.status(404).json({ message: "Customer not found" });
     }
 
     res.status(200).json({
@@ -129,7 +131,15 @@ const getBookedEvents = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching booked events:", error);
-    res.status(500).json({ message: 'Server error while fetching booked events' });
+    res
+      .status(500)
+      .json({ message: "Server error while fetching booked events" });
   }
-}
-module.exports = { createEvent, getEvents, deleteEvent , getBookedEvents , bookEvent};
+};
+module.exports = {
+  createEvent,
+  getEvents,
+  deleteEvent,
+  getBookedEvents,
+  bookEvent,
+};

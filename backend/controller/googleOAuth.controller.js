@@ -14,7 +14,7 @@ const handleGoogleOAuth = async (req, res) => {
     {
       expiresIn: "1d",
       algorithm: "HS256",
-    }
+    },
   );
 
   res.cookie("authToken", token, {

@@ -7,7 +7,7 @@ const Admin = () => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const {user} = useUser();
+  const { user } = useUser();
 
   // Fetch all events
   const fetchData = async () => {
@@ -267,41 +267,42 @@ const Admin = () => {
           <div className="container grid grid-cols-1 gap-8 px-4 md:grid-cols-2 lg:grid-cols-1 md:px-6">
             <div className="event-list">
               {error && <p className="text-red-500">{error}</p>}
-              {events.length > 0 && events.map((event) => (
-                <div
-                  key={event._id}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-1 xl:grid-cols-2 md:px-6 lg:px-4 xl:px-0"
-                >
-                  <div className="w-full m-10 mx-auto lg:mx-0 md:mx-0">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      loading='lazy'
-                      className="h-[400px] w-full"
-                    />
-                  </div>
-                  <div className="w-full lg:m-10 md:m-10">
-                    <h1 className="text-4xl font-semibold">{event.title}</h1>
-                    <h4 className="text-xl text-muted text-slate-700 italic mt-2 leading-8">
-                      {event.description}
-                    </h4>
-                    <div className="text-xl text-muted text-slate-700 italic mt-2 leading-8">
-                      <b>Date: </b> <i>{event.date}</i>
-                      <br />
-                      <b>Time: </b> <i>{event.time}</i>
-                      <br />
-                      <b>Age: </b> <i>{event.ageRange}</i>
-                      <br />
+              {events.length > 0 &&
+                events.map((event) => (
+                  <div
+                    key={event._id}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-1 xl:grid-cols-2 md:px-6 lg:px-4 xl:px-0"
+                  >
+                    <div className="w-full m-10 mx-auto lg:mx-0 md:mx-0">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        loading="lazy"
+                        className="h-[400px] w-full"
+                      />
                     </div>
-                    <button
-                      onClick={() => handleDelete(event._id)}
-                      className="btn btn-primary bg-[#f81b1b] p-4 rounded-xl text-md font-medium mt-4 hover:scale-110 transition text-white"
-                    >
-                      Remove Event
-                    </button>
+                    <div className="w-full lg:m-10 md:m-10">
+                      <h1 className="text-4xl font-semibold">{event.title}</h1>
+                      <h4 className="text-xl text-muted text-slate-700 italic mt-2 leading-8">
+                        {event.description}
+                      </h4>
+                      <div className="text-xl text-muted text-slate-700 italic mt-2 leading-8">
+                        <b>Date: </b> <i>{event.date}</i>
+                        <br />
+                        <b>Time: </b> <i>{event.time}</i>
+                        <br />
+                        <b>Age: </b> <i>{event.ageRange}</i>
+                        <br />
+                      </div>
+                      <button
+                        onClick={() => handleDelete(event._id)}
+                        className="btn btn-primary bg-[#f81b1b] p-4 rounded-xl text-md font-medium mt-4 hover:scale-110 transition text-white"
+                      >
+                        Remove Event
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </section>

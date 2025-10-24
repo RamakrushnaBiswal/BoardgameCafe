@@ -25,7 +25,7 @@ const AdminSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-  
+
     // Input validation
     if (!data.email || !data.password || !data.name) {
       setError('Please fill in all fields');
@@ -48,7 +48,7 @@ const AdminSignup = () => {
       setIsLoading(false);
       return;
     }
-  
+
     try {
       const response = await fetch(`${API_URL}/api/admin/register`, {
         method: 'POST',
@@ -56,17 +56,15 @@ const AdminSignup = () => {
         body: JSON.stringify(data),
       });
       const result = await response.json();
-  
+
       if (!response.ok) {
         setIsLoading(false);
         setError(result.error);
         return;
       }
-  
-      
-    //   alert('OTP sent to your email. Verify to complete registration.');
-      navigate('/admin-login'); 
-  
+
+      //   alert('OTP sent to your email. Verify to complete registration.');
+      navigate('/admin-login');
     } catch (error) {
       setError(error.message);
       console.error('Error:', error);
@@ -74,7 +72,6 @@ const AdminSignup = () => {
       setIsLoading(false); // Ensure loading state is reset after request
     }
   };
-  
 
   useEffect(() => {
     window.scrollTo(0, 0);

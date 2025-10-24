@@ -2,12 +2,6 @@ const express = require("express");
 const logger = require("../config/logger"); // Import your Winston logger
 require("dotenv").config();
 
-const config = {
-  JWT_SECRET: process.env.JWT_SECRET,
-  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-};
-
 const router = express.Router();
 
 let feedbackRouter;
@@ -49,7 +43,7 @@ router.get("/", (req, res) => {
 
 router.use("/event", eventRouter);
 router.use("/admin", require("./adminRouter"));
-router.use("/feedback", require("./feedbackRouter"));
+router.use("/feedback", feedbackRouter);
 router.use("/user", require("./customerRouter"));
 router.use("/reservation", require("./reservationRouter"));
 router.use("/newsletter", require("./newsletterRoute"));

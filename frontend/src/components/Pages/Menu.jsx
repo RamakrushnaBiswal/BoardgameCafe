@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line prettier/prettier
-import React , { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
 import Mybook from './MyBook';
@@ -66,7 +66,9 @@ function ParallaxImage() {
           </div>
         </div>
         <div className="flex flex-col items-center mb-2">
-          <h1 className="text-5xl md:text-9xl font-roboto dark:text-gray-50">Flip Menu</h1>
+          <h1 className="text-5xl md:text-9xl font-roboto dark:text-gray-50">
+            Flip Menu
+          </h1>
           <GiArrowDunk size={60} className="mt-2 text-orange-400" />
         </div>
         {/* <div className="w-full md:flex md:items-center md:justify-center">

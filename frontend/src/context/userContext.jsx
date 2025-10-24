@@ -7,16 +7,16 @@ export const UserContext = createContext({
 });
 
 export const UserProvider = ({ children }) => {
-  const data = Cookies.get("authenticatedUser");
+  const data = Cookies.get('authenticatedUser');
 
   let userData = null;
   try {
     userData = data ? JSON.parse(data) : null;
   } catch (error) {
     console.error('Invalid user data in cookie:', error);
-    Cookies.remove("authenticatedUser");
+    Cookies.remove('authenticatedUser');
   }
-  
+
   const [user, setUser] = useState(userData);
 
   return (

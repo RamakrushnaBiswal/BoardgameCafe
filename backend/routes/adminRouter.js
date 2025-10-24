@@ -19,7 +19,7 @@ router.get(
       },
       documentation: "https://api-docs-url.com",
     });
-  }
+  },
 );
 router.post("/register", createAdmin);
 router.post("/login", loginAdmin);

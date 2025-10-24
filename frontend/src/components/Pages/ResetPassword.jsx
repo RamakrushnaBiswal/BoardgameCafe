@@ -2,17 +2,17 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import photo from '../../assets/login.png';
 import React, { useState } from 'react';
 import { message } from 'antd';
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa6';
 
 const ResetPassword = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
   const navigate = useNavigate(); // Use useNavigate for navigation
   const { id } = useParams();
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [hidden, setHidden] = useState(true)
-  const [confHidden, setConfHidden] = useState(true)
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [hidden, setHidden] = useState(true);
+  const [confHidden, setConfHidden] = useState(true);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -20,7 +20,6 @@ const ResetPassword = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +46,7 @@ const ResetPassword = () => {
         },
         body: JSON.stringify({
           id: id,
-          password: password
+          password: password,
         }),
       });
       const result = await response.json();
@@ -91,15 +90,18 @@ const ResetPassword = () => {
             className="input w-full h-10 rounded-md border-2 border-black bg-beige shadow-[4px_4px_0px_0px_black] text-[15px] font-semibold text-[#323232] p-2.5 focus:outline-none focus:border-[#2d8cf0] placeholder-[#666] placeholder-opacity-80"
             name="password"
             placeholder="Password"
-            type={hidden ? "password" : "text"}
+            type={hidden ? 'password' : 'text'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button className="absolute top-1/2 -translate-y-1/2 right-4" onClick={(e)=>{
-            e.preventDefault()
-            setHidden(!hidden)
-          }}>
-            {hidden ? <FaEyeSlash/> : <FaEye/>}
+          <button
+            className="absolute top-1/2 -translate-y-1/2 right-4"
+            onClick={(e) => {
+              e.preventDefault();
+              setHidden(!hidden);
+            }}
+          >
+            {hidden ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
 
@@ -108,15 +110,18 @@ const ResetPassword = () => {
             className="input w-full h-10 rounded-md border-2 border-black bg-beige shadow-[4px_4px_0px_0px_black] text-[15px] font-semibold text-[#323232] p-2.5 focus:outline-none focus:border-[#2d8cf0] placeholder-[#666] placeholder-opacity-80"
             name="confirmPassword"
             placeholder="Confirm Password"
-            type={confHidden ? "password" : "text"}
+            type={confHidden ? 'password' : 'text'}
             onChange={(e) => setConfirmPassword(e.target.value)}
             value={confirmPassword}
           />
-          <button className="absolute top-1/2 -translate-y-1/2 right-4" onClick={(e)=>{
-            e.preventDefault()
-            setConfHidden(!confHidden)
-          }}>
-            {confHidden ? <FaEyeSlash/> : <FaEye/>}
+          <button
+            className="absolute top-1/2 -translate-y-1/2 right-4"
+            onClick={(e) => {
+              e.preventDefault();
+              setConfHidden(!confHidden);
+            }}
+          >
+            {confHidden ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
 

@@ -11,7 +11,8 @@ const customerSchema = new Schema(
       unique: true,
       validate: {
         validator: function (v) {
-          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+          // simple, robust email validation
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         },
         message: (props) => `${props.value} is not a valid email address!`,
       },
@@ -56,7 +57,7 @@ const customerSchema = new Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Customer = mongoose.model("Customer", customerSchema);

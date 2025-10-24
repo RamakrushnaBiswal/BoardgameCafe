@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import Logo from '../../../assets/Logo/playcafe.png';
 import googleImage from '../../../assets/img/google.png';
-import { FaFacebook, FaInstagram, FaTiktok, FaGithub, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTiktok,
+  FaGithub,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+} from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import Google from './Google';
 
@@ -10,7 +18,7 @@ export default function Content() {
     <div className="relative min-h-full">
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-amber-100 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-90"></div>
-      
+
       <div className="relative z-10 container mx-auto px-6 lg:px-12 py-12">
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
@@ -18,21 +26,19 @@ export default function Content() {
           <div className="lg:col-span-2">
             <Nav />
           </div>
-          
+
           {/* Right section - Newsletter */}
           <div className="flex justify-center lg:justify-end">
             <NewsletterForm />
           </div>
         </div>
-        
+
         {/* Bottom section - Logo and company info */}
         <Section2 />
       </div>
     </div>
   );
 }
-
-
 
 const NewsletterForm = () => {
   const [email, setEmail] = useState('');
@@ -68,9 +74,8 @@ const NewsletterForm = () => {
     <div className="relative group">
       {/* Compact animated background */}
       <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-400 to-orange-500 rounded-2xl blur-sm opacity-20 group-hover:opacity-30 transition duration-300 animate-pulse"></div>
-      
+
       <div className="relative bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20 dark:border-gray-700/50 max-w-xs w-full transform transition-all duration-300 hover:scale-[1.01]">
-        
         <div className="relative z-10">
           {/* Compact header */}
           <div className="text-center mb-5">
@@ -79,7 +84,7 @@ const NewsletterForm = () => {
                 <HiMail className="text-xl text-white" />
               </div>
             </div>
-            
+
             <h3 className="text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 dark:from-white dark:to-gray-100 bg-clip-text text-transparent mb-2">
               Stay Updated
             </h3>
@@ -87,7 +92,7 @@ const NewsletterForm = () => {
               Get updates on events & offers
             </p>
           </div>
-          
+
           {/* Compact form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
@@ -103,9 +108,9 @@ const NewsletterForm = () => {
                 required
               />
             </div>
-            
-            <button 
-              type="submit" 
+
+            <button
+              type="submit"
               disabled={isLoading}
               className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-500/50 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg hover:shadow-xl text-sm"
             >
@@ -119,19 +124,25 @@ const NewsletterForm = () => {
               )}
             </button>
           </form>
-          
+
           {/* Compact message */}
           {message && (
-            <div className={`mt-3 p-3 rounded-xl text-center text-xs font-medium transition-all duration-300 ${
-              message.includes('Thank you') 
-                ? 'bg-green-50 text-green-700 border border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-700' 
-                : 'bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-700'
-            }`}>
+            <div
+              className={`mt-3 p-3 rounded-xl text-center text-xs font-medium transition-all duration-300 ${
+                message.includes('Thank you')
+                  ? 'bg-green-50 text-green-700 border border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-700'
+                  : 'bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-700'
+              }`}
+            >
               <div className="flex items-center justify-center space-x-2">
                 {message.includes('Thank you') ? (
-                  <span className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                  <span className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">
+                    ✓
+                  </span>
                 ) : (
-                  <span className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">!</span>
+                  <span className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                    !
+                  </span>
                 )}
                 <span>{message}</span>
               </div>
@@ -167,22 +178,31 @@ const Section2 = () => {
             </p>
           </div>
         </div>
-        
+
         {/* Copyright and Legal */}
         <div className="text-center lg:text-right">
           <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
             © 2024 by Sip & Play. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center lg:justify-end space-x-4 text-xs text-gray-500 dark:text-gray-500">
-            <a href="/privacy" className="hover:text-amber-600 transition-colors duration-200">
+            <a
+              href="/privacy"
+              className="hover:text-amber-600 transition-colors duration-200"
+            >
               Privacy Policy
             </a>
             <span>•</span>
-            <a href="/terms" className="hover:text-amber-600 transition-colors duration-200">
+            <a
+              href="/terms"
+              className="hover:text-amber-600 transition-colors duration-200"
+            >
               Terms of Service
             </a>
             <span>•</span>
-            <a href="/cookies" className="hover:text-amber-600 transition-colors duration-200">
+            <a
+              href="/cookies"
+              className="hover:text-amber-600 transition-colors duration-200"
+            >
               Cookie Policy
             </a>
           </div>
@@ -206,25 +226,25 @@ const Nav = () => {
       name: 'Facebook',
       link: 'https://www.facebook.com/sipnplaynyc/',
       icon: <FaFacebook className="text-xl" />,
-      color: 'hover:text-blue-600'
+      color: 'hover:text-blue-600',
     },
     {
       name: 'Instagram',
       link: 'https://www.instagram.com/sipnplaynyc/?hl=en',
       icon: <FaInstagram className="text-xl" />,
-      color: 'hover:text-pink-600'
+      color: 'hover:text-pink-600',
     },
     {
       name: 'TikTok',
       link: 'https://www.tiktok.com/@sipnplaynycofficial?lang=en',
       icon: <FaTiktok className="text-xl" />,
-      color: 'hover:text-gray-800 dark:hover:text-white'
+      color: 'hover:text-gray-800 dark:hover:text-white',
     },
     {
       name: 'GitHub',
       link: 'https://github.com/RamakrushnaBiswal/PlayCafe',
       icon: <FaGithub className="text-xl" />,
-      color: 'hover:text-gray-800 dark:hover:text-white'
+      color: 'hover:text-gray-800 dark:hover:text-white',
     },
   ];
 
@@ -297,7 +317,7 @@ const Nav = () => {
               sipnplaynyc@gmail.com
             </span>
           </a>
-          
+
           <a
             href="tel:+17189711684"
             className="flex items-center space-x-3 text-gray-600 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 group font-medium"
@@ -316,7 +336,9 @@ const Nav = () => {
             </span>
             <div>
               <p>New York City</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Board Game Cafe</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Board Game Cafe
+              </p>
             </div>
           </div>
 

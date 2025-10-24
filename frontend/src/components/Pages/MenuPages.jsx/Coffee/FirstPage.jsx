@@ -146,14 +146,24 @@ const FirstPage = () => {
               </div>
 
               <div className="flex justify-center -space-x-36">
-                <img src={coffee} className="h-50 w-50 " alt="Coffee" loading="lazy"/>
+                <img
+                  src={coffee}
+                  className="h-50 w-50 "
+                  alt="Coffee"
+                  loading="lazy"
+                />
                 <img
                   src={coffee}
                   className="h-50 w-50 transform scale-110"
                   alt="Coffee"
                   loading="lazy"
                 />
-                <img src={coffee} className="h-50 w-50" alt="Coffee" loading="lazy"/>
+                <img
+                  src={coffee}
+                  className="h-50 w-50"
+                  alt="Coffee"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
