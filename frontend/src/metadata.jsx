@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
 
 const Metadata = () => {
@@ -29,7 +28,10 @@ const Metadata = () => {
         property="og:description"
         content="Join us at Play Cafe for a fun and immersive experience with board games and delicious food!"
       />
-      <meta property="og:image" content="URL to image for sharing" />
+      <meta
+        property="og:image"
+        content="https://play-cafe.vercel.app/playcafe-logo.png"
+      />
       <meta property="og:url" content="https://play-cafe.vercel.app" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Play Cafe" />
@@ -44,8 +46,11 @@ const Metadata = () => {
         name="twitter:description"
         content="Play Cafe offers a warm and exciting environment for board game enthusiasts to gather, relax, and enjoy great food."
       />
-      <meta name="twitter:image" content="URL to image for sharing" />
-      <meta name="twitter:site" content="@YourTwitterHandle" />
+      <meta
+        name="twitter:image"
+        content="https://play-cafe.vercel.app/playcafe-logo.png"
+      />
+      {/* Remove twitter:site placeholder until a real Twitter handle is available. */}
 
       <link rel="canonical" href="https://play-cafe.vercel.app" />
 

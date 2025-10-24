@@ -2,6 +2,7 @@
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const passport = require("passport");
 const config = require("./secret");
+const logger = require("./logger");
 const Customer = require("../models/customer.model");
 const Admin = require("../models/admin.model");
 require("./oauth.config");
@@ -10,10 +11,18 @@ require("./oauth.config");
 const jwtSecret = process.env.JWT_SECRET || config.JWT_SECRET;
 
 if (!jwtSecret) {
-  // Skip registering JwtStrategy when secret missing to allow server startup in dev.
-  console.warn(
-    "JWT secret not provided (JWT_SECRET). Skipping JwtStrategy registration.",
-  );
+  // If the JWT secret is missing, warn in development but fail fast in
+  // non-development environments to avoid silent authentication failures.
+  if (process.env.NODE_ENV === "development") {
+    logger.warn(
+      "JWT secret not provided (JWT_SECRET). Skipping JwtStrategy registration (NODE_ENV=development).",
+    );
+  } else {
+    logger.error(
+      "JWT secret not provided (JWT_SECRET). Aborting startup to avoid silent authentication failures.",
+    );
+    throw new Error("Missing JWT secret (JWT_SECRET)");
+  }
 } else {
   const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

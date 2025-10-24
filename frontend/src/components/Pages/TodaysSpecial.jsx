@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
 import cappuccino from '../../assets/TSimg/cappuccino.webp';
@@ -106,6 +107,19 @@ const SpecialCard = ({ special, index, onMouseEnter, onMouseLeave }) => (
   </div>
 );
 
+SpecialCard.propTypes = {
+  special: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    originalPrice: PropTypes.string,
+    offerPrice: PropTypes.string,
+    image: PropTypes.string,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+};
+
 const TodaysSpecial = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // Start at the first real special
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -116,6 +130,8 @@ const TodaysSpecial = () => {
   const specialsWidth = isSmallScreen ? 100 : 100 / 3;
 
   const nextSpecial = useCallback(() => {
+    // If the user is hovering over the specials, pause auto-rotation.
+    // This hover-to-pause UX is intentional: do not advance while hovered.
     if (!isHovered) {
       // Only change if not hovering
       setIsTransitioning(true);
@@ -133,6 +149,8 @@ const TodaysSpecial = () => {
   }, [isHovered]);
 
   const prevSpecial = useCallback(() => {
+    // If the user is hovering over the specials, pause auto-rotation.
+    // This hover-to-pause UX is intentional: do not step while hovered.
     if (!isHovered) {
       // Only change if not hovering
       setIsTransitioning(true);
@@ -167,7 +185,7 @@ const TodaysSpecial = () => {
     <section className="p-8 rounded-lg shadow-md max-w-5xl mx-auto overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-5xl font-bold text-center mb-9 dark:text-gray-50">
-          Today's Specials
+          Today&apos;s Specials
         </h2>
         <div className="relative mt-5">
           <div className="overflow-visible">

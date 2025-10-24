@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 
 router.post("/create", authenticateCustomer, createEvent);
 router.get("/all", authenticateCustomer, getEvents);
-router.get("/delete", authenticateCustomer, deleteEvent);
+router.delete("/:id", authenticateCustomer, deleteEvent);
 router.get("/booked-events", authenticateCustomer, getBookedEvents);
 router.post("/book", authenticateCustomer, bookEvent);
 

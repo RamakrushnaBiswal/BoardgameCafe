@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa6';
 import zxcvbn from 'zxcvbn'; // Password strength checker
+import apiClient from '../../lib/apiClient';
 
 const Signup = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
@@ -23,7 +24,8 @@ const Signup = () => {
   const handleChange = (e) => {
     // Handle file inputs separately
     if (e.target.type === 'file') {
-      const file = e.target.files && e.target.files.length > 0 ? e.target.files[0] : null;
+      const file =
+        e.target.files && e.target.files.length > 0 ? e.target.files[0] : null;
       setData({ ...data, [e.target.name]: file });
       return;
     }
@@ -62,8 +64,7 @@ const Signup = () => {
     }
 
     try {
-      let response;
-      // If a file was selected, send as FormData; otherwise send JSON and include file as empty string
+      // If a file was selected, send as FormData; otherwise send JSON and omit the file field
       if (data.file) {
         const form = new FormData();
         form.append('name', data.name);
@@ -71,43 +72,30 @@ const Signup = () => {
         form.append('password', data.password);
         form.append('file', data.file);
 
-        response = await fetch(`${API_URL}/api/user/register`, {
-          method: 'POST',
-          body: form,
-          credentials: 'include',
-        });
+        // Pass FormData directly to apiClient.post; do not set Content-Type so
+        // the browser can add the correct multipart boundary.
+        await apiClient.post('/api/user/register', form);
       } else {
-        // No file selected — send a plain JSON body without a "file" field.
-        response = await fetch(`${API_URL}/api/user/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            password: data.password,
-          }),
-          credentials: 'include',
+        // No file selected — send JSON body. apiClient will set Content-Type.
+        await apiClient.post('/api/user/register', {
+          name: data.name,
+          email: data.email,
+          password: data.password,
         });
       }
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        setIsLoading(false);
-        // Prefer toast notification for errors
-        message.error(result?.error || 'Registration failed');
-        return;
-      }
-
+      // apiClient throws on non-2xx, so reaching here means success
       message.success(
         'OTP sent to your email. Verify to complete registration.'
       );
       navigate('/otp-verify');
     } catch (error) {
-      console.error('Error:', error);
-      message.error(error?.message || 'Registration error');
+      // apiClient attaches status and data when available
+      console.error('Registration error:', error);
+      const msg = error?.data?.error || error?.message || 'Registration error';
+      message.error(msg);
     } finally {
-      setIsLoading(false); // Ensure loading state is reset after request
+      setIsLoading(false);
     }
   };
 

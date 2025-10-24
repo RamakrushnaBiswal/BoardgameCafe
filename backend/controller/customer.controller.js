@@ -29,18 +29,24 @@ async function createCustomer(req, res) {
     const otp = crypto.randomInt(100000, 999999).toString();
     const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); // 5 mins from now
 
-    // Support file coming from multipart form (express-fileupload -> req.files)
-    // or from a JSON payload (req.body.file). Be defensive: only try to upload
-    // when we actually have a file-like value.
-    const fileFromFiles = req.files && (req.files.file || req.files.image);
-    const fileFromBody = req.body && Object.prototype.hasOwnProperty.call(req.body, 'file') ? req.body.file : undefined;
+    // Support file from multipart form (express-fileupload) or JSON payload
+    // Be defensive: only try to upload when we actually have a valid file-like value.
+    const fileData =
+      (req.files && (req.files.file || req.files.image)) ||
+      (req.body && req.body.file) ||
+      null;
 
     let fileComming = false;
     let thumbnailImage;
 
-    // Prefer file from multipart parser (req.files). If present and valid, upload.
-    const fileData = fileFromFiles || fileFromBody || null;
-    if (fileData && fileData !== '') {
+    // Validate file data: must be an object with tempFilePath or data, or a non-empty string
+    const isValidFile =
+      fileData &&
+      ((typeof fileData === "object" &&
+        (fileData.tempFilePath || fileData.data)) ||
+        (typeof fileData === "string" && fileData.trim().length > 0));
+
+    if (isValidFile) {
       fileComming = true;
       // Upload the Thumbnail to Cloudinary. The uploader util handles
       // both uploaded temp files (file.tempFilePath) and raw data strings.
@@ -48,7 +54,7 @@ async function createCustomer(req, res) {
         fileData,
         process.env.FOLDER_NAME,
       );
-      console.log('Uploaded thumbnail:', thumbnailImage?.secure_url);
+      console.log("Uploaded thumbnail:", thumbnailImage?.secure_url);
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -59,7 +65,7 @@ async function createCustomer(req, res) {
       otp,
       otpExpiry,
       isVerified: false,
-  profilePicture: fileComming ? thumbnailImage.secure_url : null,
+      profilePicture: fileComming ? thumbnailImage.secure_url : null,
     });
     await customer.save();
 

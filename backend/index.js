@@ -70,16 +70,26 @@ app.use(passport.initialize());
 
 app.use(
   session({
-    // session secret: prefer SECRET_KEY, then JWT_SECRET, otherwise fallback to a dev secret with a warning
-    secret:
-      process.env.SECRET_KEY ||
-      process.env.JWT_SECRET ||
-      (() => {
+    // session secret: prefer SECRET_KEY, then JWT_SECRET.
+    // In production fail fast if missing; in non-production warn and use a dev fallback.
+    secret: (() => {
+      let sessionSecret = process.env.SECRET_KEY || process.env.JWT_SECRET;
+      if (!sessionSecret) {
+        if (process.env.NODE_ENV === "production") {
+          logger.error(
+            "Missing session secret in production (SECRET_KEY or JWT_SECRET). Aborting startup.",
+          );
+          // Fail fast in production to avoid running with insecure defaults
+          process.exit(1);
+        }
+
         logger.warn(
           "No session secret provided in env (SECRET_KEY or JWT_SECRET). Using insecure fallback for development.",
         );
-        return "dev-secret-change-me";
-      })(),
+        sessionSecret = "dev-secret-change-me";
+      }
+      return sessionSecret;
+    })(),
     resave: false,
     saveUninitialized: false,
     cookie: {

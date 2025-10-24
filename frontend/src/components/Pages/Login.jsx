@@ -149,7 +149,7 @@ const Login = () => {
           </button>
         </a>
 
-    <button
+        <button
           type="submit"
           className="w-full h-12 rounded-md dark:text-white border-2 border-black bg-beige shadow-[4px_4px_0px_0px_black] dark:shadow-[4px_4px_0px_0px_grey] text-[17px] font-semibold text-[#323232] transition active:translate-x-[3px] active:translate-y-[3px]"
         >
