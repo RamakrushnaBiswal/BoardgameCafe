@@ -26,16 +26,16 @@ input[type='radio'] {
 }
 
 .star {
-    cursor: pointer;
-    font-size: 2rem;
-    margin-bottom: 0;
+  cursor: pointer;
+  font-size: 2rem;
+  margin-bottom: 0;
 }
 
 .card {
-    transition: all 0.3s ease; /* Ensure smooth transitions */
-  }
-  
-  /* Shadow effect on hover */
-  .card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Add a shadow on hover */
-  }
+  transition: all 0.3s ease; /* Ensure smooth transitions */
+}
+
+/* Shadow effect on hover */
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Add a shadow on hover */
+}

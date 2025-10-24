@@ -6,7 +6,7 @@ import { message } from 'antd';
 const EmailVerify = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
   const navigate = useNavigate(); // Use useNavigate for navigation
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState('');
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -39,7 +39,7 @@ const EmailVerify = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email
+          email: email,
         }),
       });
       const result = await response.json();
@@ -47,7 +47,6 @@ const EmailVerify = () => {
         throw new Error(result.message || 'Reset password failed');
       }
       console.log(result);
-      
 
       // Display success message and navigate to login
       message.success('Password reset successfully! Please log in.');

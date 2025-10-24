@@ -16,7 +16,7 @@ const FeedbackForm = () => {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
-  
+
   // Use an environment variable for backend URL
   const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
   const [name, setName] = useState('');
@@ -98,7 +98,8 @@ const FeedbackForm = () => {
               We value Your Feedback!
             </h2>
             <p className="mt-1 text-lg text-gray-700 pb-3 dark:text-white">
-              Your thoughts help us improve. Share your experience and suggestions with us!
+              Your thoughts help us improve. Share your experience and
+              suggestions with us!
             </p>
             <div className="flex md:h-[40vh] md:w-[60vh] items-center justify-center mt-12">
               <img

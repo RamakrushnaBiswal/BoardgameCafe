@@ -1,4 +1,4 @@
-import React, { useState,useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 import '@splidejs/react-splide/css';
@@ -12,12 +12,12 @@ import board6 from '../../assets/Boardgames/board6.png';
 import board7 from '../../assets/Boardgames/board7.png';
 import board8 from '../../assets/Boardgames/board8.png';
 import board10 from '../../assets/Boardgames/board10.png';
-import ludo from "../../assets/Boardgames/ludo.jpg";
-import snake from "../../assets/Boardgames/snake.jpg";
-import tic from "../../assets/Boardgames/tic.png";
-import uno from "../../assets/Boardgames/uno.jpg";
-import word from "../../assets/Boardgames/word.jpg";
-import war from "../../assets/Boardgames/war.jpg";
+import ludo from '../../assets/Boardgames/ludo.jpg';
+import snake from '../../assets/Boardgames/snake.jpg';
+import tic from '../../assets/Boardgames/tic.png';
+import uno from '../../assets/Boardgames/uno.jpg';
+import word from '../../assets/Boardgames/word.jpg';
+import war from '../../assets/Boardgames/war.jpg';
 import bg from '../../assets/Boardgames/bg.jpg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -219,87 +219,91 @@ function Boardgame() {
       ],
     },
     {
-      "src": ludo,
-      "title": "Ludo",
-      "description": "A classic board game where players race their tokens from start to finish based on dice rolls.",
-      "instructions": [
-        "Players take turns rolling a single die to move their tokens around the board.",
-        "To enter a token onto the board, players must roll a 6. Tokens move based on the number rolled.",
+      src: ludo,
+      title: 'Ludo',
+      description:
+        'A classic board game where players race their tokens from start to finish based on dice rolls.',
+      instructions: [
+        'Players take turns rolling a single die to move their tokens around the board.',
+        'To enter a token onto the board, players must roll a 6. Tokens move based on the number rolled.',
         "Players can send opponents' tokens back to start by landing on the same space.",
-        "The first player to move all their tokens into the home area wins the game."
-      ]
+        'The first player to move all their tokens into the home area wins the game.',
+      ],
     },
     {
-      "src": snake,
-      "title": "Snake and Ladders",
-      "description": "A race game where players climb ladders and avoid snakes to reach the end.",
-      "instructions": [
-        "Players take turns rolling a die to advance their token along the numbered board.",
-        "If a player lands at the base of a ladder, they climb to the top.",
-        "If a player lands on the head of a snake, they slide down to its tail.",
-        "The first player to reach the last square wins the game."
-      ]
+      src: snake,
+      title: 'Snake and Ladders',
+      description:
+        'A race game where players climb ladders and avoid snakes to reach the end.',
+      instructions: [
+        'Players take turns rolling a die to advance their token along the numbered board.',
+        'If a player lands at the base of a ladder, they climb to the top.',
+        'If a player lands on the head of a snake, they slide down to its tail.',
+        'The first player to reach the last square wins the game.',
+      ],
     },
     {
-      "src": tic,
-      "title": "Tic-Tac-Toe",
-      "description": "A simple two-player game where players try to get three of their symbols in a row.",
-      "instructions": [
-        "Players take turns placing their symbol (X or O) in an empty square on a 3x3 grid.",
-        "The first player to align three symbols vertically, horizontally, or diagonally wins.",
-        "If all squares are filled without a winner, the game ends in a draw."
-      ]
+      src: tic,
+      title: 'Tic-Tac-Toe',
+      description:
+        'A simple two-player game where players try to get three of their symbols in a row.',
+      instructions: [
+        'Players take turns placing their symbol (X or O) in an empty square on a 3x3 grid.',
+        'The first player to align three symbols vertically, horizontally, or diagonally wins.',
+        'If all squares are filled without a winner, the game ends in a draw.',
+      ],
     },
     {
-      "src": uno,
-      "title": "Uno",
-      "description": "A popular card game where players try to be the first to play all their cards.",
-      "instructions": [
-        "Players take turns matching a card from their hand to the top card of the discard pile by color or number.",
-        "Special action cards can change the gameplay, like skipping a turn or reversing play direction.",
+      src: uno,
+      title: 'Uno',
+      description:
+        'A popular card game where players try to be the first to play all their cards.',
+      instructions: [
+        'Players take turns matching a card from their hand to the top card of the discard pile by color or number.',
+        'Special action cards can change the gameplay, like skipping a turn or reversing play direction.',
         "When a player has one card left, they must yell 'Uno!' to warn others.",
-        "The first player to play all their cards wins the game."
-      ]
+        'The first player to play all their cards wins the game.',
+      ],
     },
     {
-      "src": word,
-      "title": "Word Finder",
-      "description": "A fun puzzle game where players create words from a set of letters and fit them into designated boxes.",
-      "instructions": [
-        "Players are given a list of words to find, each composed of letters that can be rearranged.",
-        "A grid of boxes is provided, where players must fit the words either horizontally, vertically, or diagonally.",
-        "Each word must be filled in completely, and letters cannot be reused for different words.",
-        "The goal is to fill in all the boxes with the given words as quickly as possible."
-      ]
+      src: word,
+      title: 'Word Finder',
+      description:
+        'A fun puzzle game where players create words from a set of letters and fit them into designated boxes.',
+      instructions: [
+        'Players are given a list of words to find, each composed of letters that can be rearranged.',
+        'A grid of boxes is provided, where players must fit the words either horizontally, vertically, or diagonally.',
+        'Each word must be filled in completely, and letters cannot be reused for different words.',
+        'The goal is to fill in all the boxes with the given words as quickly as possible.',
+      ],
     },
     {
-      "src": war,
-      "title": "War",
-      "description": "A simple two-player card game where players compete to win all the cards.",
-      "instructions": [
-        "The deck is shuffled and split evenly between the two players.",
-        "Each player reveals the top card of their stack at the same time.",
-        "The player with the higher card wins both cards and adds them to the bottom of their stack.",
+      src: war,
+      title: 'War',
+      description:
+        'A simple two-player card game where players compete to win all the cards.',
+      instructions: [
+        'The deck is shuffled and split evenly between the two players.',
+        'Each player reveals the top card of their stack at the same time.',
+        'The player with the higher card wins both cards and adds them to the bottom of their stack.',
         "In case of a tie, a 'war' occurs: each player places three cards face down and reveals the next card. The higher card wins all the cards on the table.",
-        "The game continues until one player has all the cards or until players decide to stop."
-      ]
+        'The game continues until one player has all the cards or until players decide to stop.',
+      ],
     },
     // CARROM ADDED
     {
-      "src": CARROM,
-      "title": "Carrom",
-      "description": "A popular tabletop game where players use a striker to pocket pieces into four corner pockets.",
-      "instructions": [
-        "Players take turns flicking the striker to pocket carrom men (game pieces) into the corner pockets.",
-        "Each player aims to score points by pocketing their assigned pieces (black or white) and the queen piece.",
-        "The queen is the red piece, and it must be followed by another pocketed piece to be claimed.",
-        "The game continues until all pieces are pocketed, and the player with the highest score wins."
+      src: CARROM,
+      title: 'Carrom',
+      description:
+        'A popular tabletop game where players use a striker to pocket pieces into four corner pockets.',
+      instructions: [
+        'Players take turns flicking the striker to pocket carrom men (game pieces) into the corner pockets.',
+        'Each player aims to score points by pocketing their assigned pieces (black or white) and the queen piece.',
+        'The queen is the red piece, and it must be followed by another pocketed piece to be claimed.',
+        'The game continues until all pieces are pocketed, and the player with the highest score wins.',
       ],
     },
-        
-                
   ];
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -329,9 +333,9 @@ function Boardgame() {
                 autoplay: true,
                 lazyLoad: 'sequential',
                 autoScroll: {
-                  speed: 0.2, 
-                  pauseOnHover:true
-                }
+                  speed: 0.2,
+                  pauseOnHover: true,
+                },
               }}
               className="mx-auto w-full rounded-t-xl object-cover object-center shadow-2xl"
             >
@@ -341,7 +345,7 @@ function Boardgame() {
                   effect="blur"
                   src="https://images.unsplash.com/photo-1656686631034-e88d4fbde1e3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   className="object-cover w-full"
-                  style={{height : "500px" ,width:"2000px"}}
+                  style={{ height: '500px', width: '2000px' }}
                 />
               </SplideSlide>
               <SplideSlide>
@@ -350,7 +354,7 @@ function Boardgame() {
                   effect="blur"
                   src="https://images.unsplash.com/photo-1681402720847-961bb1aab8d8?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   className="object-cover w-full"
-                  style={{height : "500px",width:"2000px"}}
+                  style={{ height: '500px', width: '2000px' }}
                 />
               </SplideSlide>
               <SplideSlide>
@@ -359,7 +363,7 @@ function Boardgame() {
                   effect="blur"
                   src="https://images.unsplash.com/photo-1609818698346-8cb3be6e0bc0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   className="object-cover"
-                  style={{height : "500px",width:"2000px"}}
+                  style={{ height: '500px', width: '2000px' }}
                 />
               </SplideSlide>
               <SplideSlide>
@@ -368,7 +372,7 @@ function Boardgame() {
                   effect="blur"
                   src="https://images.unsplash.com/photo-1659480142923-0cd01191e0e9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   className="object-cover"
-                  style={{height : "500px",width:"2000px"}}
+                  style={{ height: '500px', width: '2000px' }}
                 />
               </SplideSlide>
               {/* Add more slides as necessary */}

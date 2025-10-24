@@ -23,9 +23,4 @@ export default [
       prettier: pluginPrettier,
     },
   },
-  {
-    languageOptions: {
-      globals: globals.browsers,
-    },
-  },
 ];

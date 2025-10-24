@@ -31,7 +31,7 @@ async function createReservation(req, res) {
         errors: validationResult.error.errors,
       });
     }
-    const userId = req.params.id
+    const userId = req.params.id;
 
     const { email, date, guests, time } = validationResult.data;
 
@@ -91,7 +91,7 @@ async function createReservation(req, res) {
 async function fetchUserReservations(req, res) {
   try {
     const userId = req.params.id; // Extract user ID from route parameters
-    
+
     if (!userId) {
       return res.status(400).json({
         success: false,
@@ -100,7 +100,10 @@ async function fetchUserReservations(req, res) {
     }
 
     // Find all reservations associated with the customer
-    const reservations = await Reservation.find({ customer: userId }).populate("customer", "name email");
+    const reservations = await Reservation.find({ customer: userId }).populate(
+      "customer",
+      "name email",
+    );
 
     if (reservations.length === 0) {
       logger.info(`No reservations found for user ID: ${userId}`);
@@ -131,5 +134,5 @@ async function fetchUserReservations(req, res) {
 
 module.exports = {
   createReservation,
-  fetchUserReservations
+  fetchUserReservations,
 };

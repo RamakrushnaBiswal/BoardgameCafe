@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import photo from '../../assets/login-opt.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import Cookies from 'js-cookie';
+import apiClient from '../../lib/apiClient';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
-  const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
   const [data, setData] = useState({ email: '', password: '' });
+  const BACKEND_URL =
+    import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
   const [hidden, setHidden] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [rememberMe, setRememberMe] = useState(false); // New state for Remember Me
   const navigate = useNavigate();
 
@@ -21,38 +22,40 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(null);
+    // use toast messages for errors instead of inline error state
 
     try {
-      const response = await fetch(`${API_URL}/api/user/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...data, rememberMe }), // Include rememberMe in the body
+      const result = await apiClient.post('/api/user/login', {
+        ...data,
+        rememberMe,
       });
-      const result = await response.json();
-      // console.log(result);
-      
-      if (!response) {
-        throw new Error(result.message || 'Login failed');
+
+      if (!result || !result.user || !result.token) {
+        const errMsg = 'Login failed: invalid server response';
+        message.error(errMsg);
+        return;
       }
-      const res = JSON.stringify(result.user)
-      
-      Cookies.set("authenticatedUser", res, {expires: 1, secure: true, sameSite: 'strict'})
-      
+
+      const res = JSON.stringify(result.user);
+
+      Cookies.set('authenticatedUser', res, {
+        expires: 1,
+        secure: import.meta.env.MODE === 'production',
+        sameSite: 'strict',
+      });
+
       Cookies.set('authToken', result.token, {
-        expires: rememberMe ? 7 : 1 / 24, // 7 days if Remember Me is checked, 1 hour otherwise
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        expires: rememberMe ? 7 : 1 / 24,
+        secure: import.meta.env.MODE === 'production',
+        sameSite: 'strict',
       });
 
       message.success('Login successful');
       navigate('/');
     } catch (err) {
       console.log(err);
-      
-      setError(err.message || 'An error occurred. Please try again.');
+      const msg = err?.message || String(err);
+      message.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -137,10 +140,7 @@ const Login = () => {
           </Link>
         </h3>
 
-        <a
-          href={`${API_URL}/api/user/auth/google`}
-          className="w-full"
-        >
+        <a href={`${BACKEND_URL}/api/user/auth/google`} className="w-full">
           <button
             type="button"
             className="w-full h-12 rounded-md border-2 dark:text-white border-black bg-beige shadow-[4px_4px_0px_0px_black] dark:shadow-[4px_4px_0px_0px_grey] text-[17px] font-semibold text-[#323232] transition active:translate-x-[3px] active:translate-y-[3px]"
@@ -148,8 +148,6 @@ const Login = () => {
             Sign in with Google
           </button>
         </a>
-
-        {error && <p className="text-red-500 mt-2">{error}</p>}
 
         <button
           type="submit"

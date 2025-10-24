@@ -3,7 +3,7 @@ require("dotenv").config();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const logger = require("./config/logger");
-const newsletterRoute = require('./routes/newsletterRoute');
+const newsletterRoute = require("./routes/newsletterRoute");
 const errorMiddleware = require("./middlewares/errrorMiddleware"); // Corrected typo
 const passport = require("passport");
 const { handleGoogleOAuth } = require("./controller/googleOAuth.controller");
@@ -18,25 +18,35 @@ const { cloudinaryConnect } = require("./config/cloudinary");
 // CORS configuration
 const corsOptions = {
   origin: ["http://localhost:5173", "https://play-cafe.vercel.app"],
-  credentials: true,  
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
 
-
 app.use(express.json());
-app.use('/api', newsletterRoute);
+app.use("/api", newsletterRoute);
 app.use(
-	fileUpload({
-		useTempFiles: true,
-		tempFileDir: __dirname + "/tmp/",
-	})
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: __dirname + "/tmp/",
+  }),
 );
+
+// Normalize Mongo env var: prefer MONGO_URI, fallback to MONGO_URL
+const MONGO_CONNECTION = process.env.MONGO_URI || process.env.MONGO_URL;
+
+if (!MONGO_CONNECTION) {
+  logger.error(
+    "Missing MongoDB connection string. Set MONGO_URI or MONGO_URL in your .env file.",
+  );
+  // Exit early so developer notices the missing config instead of a cryptic connect-mongo error
+  process.exit(1);
+}
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(MONGO_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -60,7 +70,26 @@ app.use(passport.initialize());
 
 app.use(
   session({
-    secret: process.env.SECRET_KEY,
+    // session secret: prefer SECRET_KEY, then JWT_SECRET.
+    // In production fail fast if missing; in non-production warn and use a dev fallback.
+    secret: (() => {
+      let sessionSecret = process.env.SECRET_KEY || process.env.JWT_SECRET;
+      if (!sessionSecret) {
+        if (process.env.NODE_ENV === "production") {
+          logger.error(
+            "Missing session secret in production (SECRET_KEY or JWT_SECRET). Aborting startup.",
+          );
+          // Fail fast in production to avoid running with insecure defaults
+          process.exit(1);
+        }
+
+        logger.warn(
+          "No session secret provided in env (SECRET_KEY or JWT_SECRET). Using insecure fallback for development.",
+        );
+        sessionSecret = "dev-secret-change-me";
+      }
+      return sessionSecret;
+    })(),
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -68,9 +97,9 @@ app.use(
       secure: false,
     },
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
+      mongoUrl: MONGO_CONNECTION,
     }),
-  })
+  }),
 );
 
 // API routes
@@ -82,7 +111,7 @@ app.get(
     failureRedirect: "/login",
     session: false,
   }),
-  handleGoogleOAuth
+  handleGoogleOAuth,
 );
 
 // Global CORS preflight options

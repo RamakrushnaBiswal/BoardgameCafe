@@ -6,35 +6,35 @@ import { useNavigate } from 'react-router-dom';
 
 const membershipData = [
   {
-    title: "Foods + Games Membership",
+    title: 'Foods + Games Membership',
     features: [
-      "Access to both the food menu and gaming lounge",
-      "Special discounts on selected food items",
-      "Free gaming credits each month",
-      "Exclusive access to members-only events"
+      'Access to both the food menu and gaming lounge',
+      'Special discounts on selected food items',
+      'Free gaming credits each month',
+      'Exclusive access to members-only events',
     ],
-    price: "$50/month",
+    price: '$50/month',
   },
   {
-    title: "Games Only Membership",
+    title: 'Games Only Membership',
     features: [
-      "Unlimited access to all games",
-      "Free gaming credits every week",
-      "Invitations to members-only gaming tournaments"
+      'Unlimited access to all games',
+      'Free gaming credits every week',
+      'Invitations to members-only gaming tournaments',
     ],
-    price: "$30/month",
+    price: '$30/month',
   },
   {
-    title: "Customizable Add-ons",
+    title: 'Customizable Add-ons',
     features: [
-      "Free food on game days",
-      "Extra gaming time",
-      "Birthday party discounts",
-        "Free gaming credits every week",
-        "Invitations to members-only gaming tournaments",
-        "Exclusive access to members-only events"
+      'Free food on game days',
+      'Extra gaming time',
+      'Birthday party discounts',
+      'Free gaming credits every week',
+      'Invitations to members-only gaming tournaments',
+      'Exclusive access to members-only events',
     ],
-    price: "Varies",
+    price: 'Varies',
   },
 ];
 
@@ -44,7 +44,7 @@ const containerVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 50,
       damping: 20,
       staggerChildren: 0.2,
@@ -81,9 +81,12 @@ const Membership = () => {
       variants={containerVariants}
     >
       <div className="flex flex-col items-center mb-12 ">
-        <h1 className="text-5xl md:text-7xl font-bold text-black dark:text-white tracking-wide mb-6">Membership Plans</h1>
+        <h1 className="text-5xl md:text-7xl font-bold text-black dark:text-white tracking-wide mb-6">
+          Membership Plans
+        </h1>
         <p className="md:text-2xl text-xl font-sans text-gray-700 dark:text-gray-400 text-center max-w-3xl">
-          Choose the plan that suits your needs and start enjoying exclusive perks!
+          Choose the plan that suits your needs and start enjoying exclusive
+          perks!
         </p>
       </div>
 
@@ -95,16 +98,23 @@ const Membership = () => {
             whileHover={{ scale: 1.05 }}
             variants={cardVariants}
           >
-            <h2 className="text-3xl font-extrabold text-white mb-4">{plan.title}</h2>
+            <h2 className="text-3xl font-extrabold text-white mb-4">
+              {plan.title}
+            </h2>
             <ul className="mb-6">
               {plan.features.map((feature, idx) => (
-                <li key={idx} className="flex items-center mb-2 text-lg text-gray-200">
+                <li
+                  key={idx}
+                  className="flex items-center mb-2 text-lg text-gray-200"
+                >
                   <GiCheckMark className="text-green-400 mr-2" /> {feature}
                 </li>
               ))}
             </ul>
-            <div className="text-2xl font-semibold text-white mb-6">{plan.price}</div>
-            {plan.title === "Customizable Add-ons" ? (
+            <div className="text-2xl font-semibold text-white mb-6">
+              {plan.price}
+            </div>
+            {plan.title === 'Customizable Add-ons' ? (
               <button
                 className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:bg-gradient-to-r dark:from-gray-500 dark:to-gray-800 text-white py-2 px-8 rounded-full hover:from-orange-500 hover:to-yellow-500 transition-all"
                 onClick={() => setIsModalOpen(true)}

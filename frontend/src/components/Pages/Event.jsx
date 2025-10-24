@@ -39,8 +39,8 @@ function Event() {
     const isAuthenticated = Boolean(Cookies.get('authToken'));
 
     if (!isAuthenticated) {
-      alert("Please sign in to register for the event.");
-      navigate('/login'); 
+      alert('Please sign in to register for the event.');
+      navigate('/login');
     }
   };
   useEffect(() => {
@@ -129,7 +129,10 @@ function Event() {
 
   return (
     <>
-      <div id="event" className="w-full h-fit bg-amber-100 dark:bg-black dark:text-white md:overflow-hidden ">
+      <div
+        id="event"
+        className="w-full h-fit bg-amber-100 dark:bg-black dark:text-white md:overflow-hidden "
+      >
         <section className="w-full h-full py-12 md:py-24 lg:py-32 bg-muted flex justify-center md:overflow-hidden ">
           <div className="container relative items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-4">
@@ -195,7 +198,10 @@ function Event() {
                 ))}
               </div>
               <div className="text-center mt-4">
-                <button onClick={handleRegisterClick} className="bg-[#FEF3C7] dark:bg-black text-gray-700 dark:text-white px-4 py-2 rounded-md mt-4">
+                <button
+                  onClick={handleRegisterClick}
+                  className="bg-[#FEF3C7] dark:bg-black text-gray-700 dark:text-white px-4 py-2 rounded-md mt-4"
+                >
                   Register for Event
                 </button>
               </div>

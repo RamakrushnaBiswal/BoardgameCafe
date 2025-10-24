@@ -3,9 +3,8 @@ const logger = require("../config/logger");
 const config = require("../config/secret");
 const Customer = require("../models/customer.model");
 
-
 const authenticateCustomer = async (req, res, next) => {
-  const token = req.header("Authorization")?.split(" ")[1]; 
+  const token = req.header("Authorization")?.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({ message: "Authorization token is missing" });

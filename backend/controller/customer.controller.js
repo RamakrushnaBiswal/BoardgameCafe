@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const bcrypt = require("bcrypt");
-const crypto = require('crypto');
+const crypto = require("crypto");
 const { z } = require("zod");
 const Customer = require("../models/customer.model");
 const jwt = require("jsonwebtoken");
@@ -26,22 +26,36 @@ async function createCustomer(req, res) {
   }
 
   try {
-  
     const otp = crypto.randomInt(100000, 999999).toString();
     const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); // 5 mins from now
 
-    const { file } = req.body;
+    // Support file from multipart form (express-fileupload) or JSON payload
+    // Be defensive: only try to upload when we actually have a valid file-like value.
+    const fileData =
+      (req.files && (req.files.file || req.files.image)) ||
+      (req.body && req.body.file) ||
+      null;
+
     let fileComming = false;
     let thumbnailImage;
-    if (file !== "") {
+
+    // Validate file data: must be an object with tempFilePath or data, or a non-empty string
+    const isValidFile =
+      fileData &&
+      ((typeof fileData === "object" &&
+        (fileData.tempFilePath || fileData.data)) ||
+        (typeof fileData === "string" && fileData.trim().length > 0));
+
+    if (isValidFile) {
       fileComming = true;
-			// Upload the Thumbnail to Cloudinary
-			thumbnailImage = await uploadImageToCloudinary(
-				file,
-				process.env.FOLDER_NAME
-			);
-			console.log(thumbnailImage);
-		}
+      // Upload the Thumbnail to Cloudinary. The uploader util handles
+      // both uploaded temp files (file.tempFilePath) and raw data strings.
+      thumbnailImage = await uploadImageToCloudinary(
+        fileData,
+        process.env.FOLDER_NAME,
+      );
+      console.log("Uploaded thumbnail:", thumbnailImage?.secure_url);
+    }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const customer = new Customer({
@@ -51,19 +65,20 @@ async function createCustomer(req, res) {
       otp,
       otpExpiry,
       isVerified: false,
-      profilePicture: fileComming? thumbnailImage.secure_url: "null",
+      profilePicture: fileComming ? thumbnailImage.secure_url : null,
     });
     await customer.save();
 
     await sendRegisterVerificationMail(req.body.email, otp);
 
-    res.status(201).json({ message: "OTP sent to your email. Verify to complete registration." });
+    res.status(201).json({
+      message: "OTP sent to your email. Verify to complete registration.",
+    });
   } catch (error) {
     console.error("Error creating customer:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
 
 async function verifyOtp(req, res) {
   const { email, otp } = req.body;
@@ -71,19 +86,20 @@ async function verifyOtp(req, res) {
   try {
     const customer = await Customer.findOne({ email });
 
-    
     if (!customer || customer.isVerified) {
-      return res.status(400).json({ error: "Invalid request or already verified" });
+      return res
+        .status(400)
+        .json({ error: "Invalid request or already verified" });
     }
 
-    
     if (customer.otp !== otp) {
       return res.status(400).json({ error: "Invalid OTP" });
     }
     if (new Date() > customer.otpExpiry) {
-      return res.status(400).json({ error: "OTP expired. Please register again." });
+      return res
+        .status(400)
+        .json({ error: "OTP expired. Please register again." });
     }
-
 
     customer.isVerified = true;
     customer.otp = undefined;
@@ -96,7 +112,6 @@ async function verifyOtp(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
 
 async function loginCustomer(req, res) {
   const customerLoginSchema = z.object({
@@ -118,7 +133,9 @@ async function loginCustomer(req, res) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
     if (!customer.isVerified) {
-      return res.status(403).json({ error: "Account not verified. Please verify your email." });
+      return res
+        .status(403)
+        .json({ error: "Account not verified. Please verify your email." });
     }
 
     const validPassword = await bcrypt.compare(password, customer.password);
@@ -152,7 +169,7 @@ async function loginCustomer(req, res) {
         id: customer._id,
         name: customer.name,
         email: customer.email,
-        role: "customer"
+        role: "customer",
       },
     });
   } catch (error) {
@@ -160,8 +177,6 @@ async function loginCustomer(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
-
 
 async function resetPassword(req, res) {
   const customerResetPasswordSchema = z.object({
@@ -188,29 +203,31 @@ async function resetPassword(req, res) {
   }
 }
 
-async function getCustomerDetail (req, res) {
+async function getCustomerDetail(req, res) {
   const { id } = req.user;
 
   try {
     // Find user by ID and populate related fields if needed
     const user = await Customer.findById(id)
-      .populate('bookedEvents') // Populate booked events if needed
-      .populate('orders')       // Populate orders if needed
-      .populate('reservations') // Populate reservations if needed
-      .select('-password -verificationCode -otp'); // Exclude sensitive fields
+      .populate("bookedEvents") // Populate booked events if needed
+      .populate("orders") // Populate orders if needed
+      .populate("reservations") // Populate reservations if needed
+      .select("-password -verificationCode -otp"); // Exclude sensitive fields
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     res.status(200).json(user);
   } catch (error) {
     console.error("Error fetching user profile:", error);
-    res.status(500).json({ message: 'Server error while fetching user profile' });
+    res
+      .status(500)
+      .json({ message: "Server error while fetching user profile" });
   }
 }
 
-async function logout(req, res){
+async function logout(req, res) {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).send("Failed to log out.");

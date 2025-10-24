@@ -16,7 +16,7 @@ const AdminLogin = () => {
   const [hidden, setHidden] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const {user, setUser} = useUser();
+  const { user, setUser } = useUser();
 
   const navigate = useNavigate();
 
@@ -49,10 +49,10 @@ const AdminLogin = () => {
       if (!response.ok) {
         throw new Error(result.message || 'Login failed');
       }
-      const res = JSON.stringify(result.admin)
+      const res = JSON.stringify(result.admin);
       Cookies.set('authToken', result.token, { expires: 1, secure: true });
-      Cookies.set("authenticatedUser", res, {expires: 1, secure: true})
-      setUser(result.admin)
+      Cookies.set('authenticatedUser', res, { expires: 1, secure: true });
+      setUser(result.admin);
       message.success('Login successful');
       navigate('/admin');
     } catch (err) {
@@ -131,10 +131,7 @@ const AdminLogin = () => {
           </Link>
         </h3>
 
-        <Link
-          to={`${API_URL}/api/user/auth/google`}
-          className="w-full"
-        >
+        <Link to={`${API_URL}/api/user/auth/google`} className="w-full">
           <button
             type="button"
             className="w-full h-12 rounded-md border-2 dark:text-white border-black bg-beige shadow-[4px_4px_0px_0px_black] text-[17px] font-semibold text-[#323232] transition active:translate-x-[3px] active:translate-y-[3px]"

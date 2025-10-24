@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const logger = require("../config/logger");
+// logger not used here; remove to satisfy lint rules
 
 const authenticateAdmin = (req, res, next) => {
   const token = req.header("Authorization")?.split(" ")[1]; // Expecting "Bearer <token>"
@@ -12,7 +12,7 @@ const authenticateAdmin = (req, res, next) => {
       }
 
       next();
-    } catch (error) {
+    } catch {
       return res.status(401).json({ error: "Unauthorized access" });
     }
   } else {

@@ -7,7 +7,6 @@ import BackToTopButton from './components/Shared/BackToTopButton';
 import Preloader from './components/Preloader';
 // import Metadata from './components/Metadata';
 
-
 function App() {
   return (
     <>
@@ -17,8 +16,6 @@ function App() {
       <Navbar />
       <Outlet />
       <Footer />
-      
-      
     </>
   );
 }

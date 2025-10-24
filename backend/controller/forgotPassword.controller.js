@@ -2,8 +2,7 @@
 const bcrypt = require("bcrypt");
 const { z } = require("zod");
 const Customer = require("../models/customer.model");
-const { sendVerificationMail }  = require("../config/nodemailer");
-
+const { sendVerificationMail } = require("../config/nodemailer");
 
 // Define the schema
 const forgotPasswordSchema = z.object({
@@ -28,7 +27,7 @@ async function verifyEmail(req, res) {
   existingCustomer.verificationCode = verifyCode;
   await existingCustomer.save();
 
-  sendVerificationMail(req.body.email, verifyCode)
+  sendVerificationMail(req.body.email, verifyCode);
 
   try {
     res.status(201).json({ id: existingCustomer._id, success: true });
@@ -38,34 +37,36 @@ async function verifyEmail(req, res) {
 }
 
 async function verifyOTP(req, res) {
-    try {
-        const { id, otp } = req.body;
-    
-        const existingCustomer = await Customer.findOne({ _id: id });
-    
-        if (!existingCustomer) {
-            return res.status(404).json({ error: "User not found" });
-        }
-    
-        if(existingCustomer.verificationCode !== otp){
-            return res.status(400).json({ error: "Invalid verification code", success: false });
-        }
-    
-        existingCustomer.verificationCode = ""
-        await existingCustomer.save();
+  try {
+    const { id, otp } = req.body;
 
-        return res.status(200).json({ message: "verified", success: true})
-    } catch (error) {
-        return res.status(500).json({ message: "Internal server error", success: false})
+    const existingCustomer = await Customer.findOne({ _id: id });
+
+    if (!existingCustomer) {
+      return res.status(404).json({ error: "User not found" });
     }
 
+    if (existingCustomer.verificationCode !== otp) {
+      return res
+        .status(400)
+        .json({ error: "Invalid verification code", success: false });
+    }
 
+    existingCustomer.verificationCode = "";
+    await existingCustomer.save();
+
+    return res.status(200).json({ message: "verified", success: true });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", success: false });
+  }
 }
 
 async function resetPassword(req, res) {
   try {
-    const {id, password} = req.body
-  
+    const { id, password } = req.body;
+
     const customer = await Customer.findOne({ _id: id });
     if (!customer) {
       return res.status(401).json({ error: "User not found" });
