@@ -1,5 +1,6 @@
-const NewsletterEmail = require("../models/newsletter.model"); // Import the Mongoose model
-const { sendSubscriptionConfirmation } = require("../config/nodemailer"); // Import the mailer function
+const NewsletterEmail = require("../models/newsletter.model");
+const { sendSubscriptionConfirmation } = require("../config/nodemailer");
+const logger = require("../config/logger");
 
 // Controller for handling newsletter subscriptions
 exports.subscribeToNewsletter = async (req, res) => {
@@ -25,7 +26,7 @@ exports.subscribeToNewsletter = async (req, res) => {
     try {
       await sendSubscriptionConfirmation(email);
     } catch (error) {
-      console.error("Error sending confirmation email:", error);
+      logger.error("Error sending confirmation email:", error);
       return res.status(500).json({
         error:
           "Subscription successful, but there was an error sending the confirmation email.",
@@ -36,7 +37,7 @@ exports.subscribeToNewsletter = async (req, res) => {
       message: "Subscription successful! A confirmation email has been sent.",
     });
   } catch (error) {
-    console.error("Error subscribing to newsletter:", error);
+    logger.error("Error subscribing to newsletter:", error);
     return res
       .status(500)
       .json({ error: "Error subscribing to the newsletter." });

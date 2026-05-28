@@ -13,11 +13,6 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [hidden, setHidden] = useState(true)
   const [confHidden, setConfHidden] = useState(true)
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

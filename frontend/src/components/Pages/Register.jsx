@@ -15,10 +15,6 @@ function Register() {
   const [minDate, setMinDate] = useState('');
 
   const handleSubmit = (e) => {
-    console.log(guests);
-    console.log(time);
-    console.log(date);
-    // console.log(import.meta.env.VITE_BACKEND_URL);
     e.preventDefault();
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/reservation/create`, {
       method: 'POST',
@@ -32,8 +28,8 @@ function Register() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+      .then((data) => data)
+      .catch((error) => error);
   };
 
   const handleDateValidation = () => {

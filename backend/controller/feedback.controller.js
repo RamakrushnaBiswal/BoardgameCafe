@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 
 
 const feedbackSchema = z.object({
-  name: z.string().min(2).max(100),
+  name: z.string().min(2).max(100).regex(/^[a-zA-Z\s]+$/, "Name must contain only letters and spaces"),
   email: z.string().email(),
   feedback: z.string().min(10),
   rating: z.number().min(1).max(5),

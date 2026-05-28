@@ -42,6 +42,11 @@ const AdminSignup = () => {
       setIsLoading(false);
       return;
     }
+    if (!/^[a-zA-Z\s]+$/.test(data.name)) {
+      setError('Name must contain only letters and spaces');
+      setIsLoading(false);
+      return;
+    }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
       setError('Please enter a valid email address');

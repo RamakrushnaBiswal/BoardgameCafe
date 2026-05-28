@@ -28,9 +28,8 @@ async function verifyEmail(req, res) {
   existingCustomer.verificationCode = verifyCode;
   await existingCustomer.save();
 
-  sendVerificationMail(req.body.email, verifyCode)
-
   try {
+    await sendVerificationMail(req.body.email, verifyCode);
     res.status(201).json({ id: existingCustomer._id, success: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

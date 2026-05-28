@@ -37,9 +37,8 @@ const createEvent = async (req, res) => {
 
 const deleteEvent = async (req, res) => {
   try {
-    const eventId = req.query.id; // Change to req.query.id
-    console.log(eventId);
-    const event = await Event.findById(eventId); // Remove the object wrapper
+    const eventId = req.query.id;
+    const event = await Event.findById(eventId);
 
     if (!event) {
       return res.status(404).json({ message: "Event not found" });
@@ -56,10 +55,6 @@ const deleteEvent = async (req, res) => {
 const getEvents = async (req, res) => {
   try {
     const events = await Event.find();
-
-    if (events.length === 0) {
-      return res.status(204).send(); // No Content
-    }
 
     res.status(200).json(events);
   } catch (error) {
@@ -108,7 +103,7 @@ const bookEvent = async (req, res) => {
       bookedEvent: event,
     });
   } catch (error) {
-    console.error("Error booking event:", error);
+    logger.error("Error booking event:", error);
     res.status(500).json({ message: "Internal server error while booking event" });
   }
 };
@@ -128,7 +123,7 @@ const getBookedEvents = async (req, res) => {
       bookedEvents: customer.bookedEvents,
     });
   } catch (error) {
-    console.error("Error fetching booked events:", error);
+    logger.error("Error fetching booked events:", error);
     res.status(500).json({ message: 'Server error while fetching booked events' });
   }
 }

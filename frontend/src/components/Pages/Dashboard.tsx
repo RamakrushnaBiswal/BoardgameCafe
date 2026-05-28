@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const API_URL = 'http://localhost:3000';
+  const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -78,10 +78,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       const authToken = Cookies.get('authToken');
-      console.log("Testing events fetch with token:", authToken);
   
       if (!authToken) {
-        console.error("No auth token found");
         return;
       }
   
@@ -96,15 +94,14 @@ const Dashboard = () => {
         if (!eventsResponse.ok) throw new Error('Failed to fetch events');
   
         const eventData = await eventsResponse.json();
-        console.log("Fetched events successfully:", eventData);
         setEvents(eventData.bookedEvents || []);
       } catch (error) {
-        console.error("Error fetching events:", error.message);
+        // Silently handle
       }
     };
   
     fetchEvents();
-  }, [API_URL]);
+  }, []);
   
 
   return (

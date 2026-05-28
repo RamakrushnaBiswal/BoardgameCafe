@@ -46,7 +46,6 @@ const EmailVerify = () => {
       if (!response.ok) {
         throw new Error(result.message || 'Reset password failed');
       }
-      console.log(result);
       
 
       // Display success message and navigate to login

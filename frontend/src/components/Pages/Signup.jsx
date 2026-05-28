@@ -42,6 +42,11 @@ const Signup = () => {
       setIsLoading(false);
       return;
     }
+    if (!/^[a-zA-Z\s]+$/.test(data.name)) {
+      setError('Name must contain only letters and spaces');
+      setIsLoading(false);
+      return;
+    }
     if (!data.email.includes('@')) {
       setError('Please enter a valid email address');
       setIsLoading(false);

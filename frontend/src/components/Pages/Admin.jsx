@@ -67,7 +67,6 @@ const Admin = () => {
     const formattedTime = `${formatTime(formData.startTime)} - ${formatTime(formData.endTime)}`;
     const { title, description, ageRange, date } = formData;
     const event = { title, description, ageRange, date, time: formattedTime };
-    console.log(event);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/event/create`,
@@ -85,9 +84,7 @@ const Admin = () => {
         navigate('/admin');
         fetchData();
       }
-      console.log(data);
     } catch (error) {
-      console.error('Error adding event:', error);
       message.error('Error adding event');
     }
   };
@@ -98,17 +95,16 @@ const Admin = () => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/event/delete?id=${eventId}`,
         {
-          method: 'get',
+          method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
         }
       );
-      const data = await response.json();
       if (!response.ok) {
-        message.success('Event deleted successfully');
-        navigate('/admin');
+        throw new Error('Failed to delete event');
       }
+      message.success('Event deleted successfully');
 
       // Filter out the deleted event from the list
       setEvents((prevEvents) =>
@@ -124,7 +120,7 @@ const Admin = () => {
     <div className="h-fit min-h-screen w-screen flex flex-col items-center justify-start p-12 pt-[10vh]">
       <div className="Header w-full flex flex-col items-center">
         <h1 className="title text-[#323232] font-black text-7xl mb-6">
-          Hi {user.name}!
+          Hi {user?.name || 'Admin'}!
         </h1>
         <h1 className="mt-[-2vh] text-[#666] font-semibold text-2xl">
           Welcome to Admin Panel

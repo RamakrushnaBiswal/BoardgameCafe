@@ -32,9 +32,8 @@ const Login = () => {
         body: JSON.stringify({ ...data, rememberMe }), // Include rememberMe in the body
       });
       const result = await response.json();
-      // console.log(result);
       
-      if (!response) {
+      if (!response.ok) {
         throw new Error(result.message || 'Login failed');
       }
       const res = JSON.stringify(result.user)
@@ -50,8 +49,6 @@ const Login = () => {
       message.success('Login successful');
       navigate('/');
     } catch (err) {
-      console.log(err);
-      
       setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
